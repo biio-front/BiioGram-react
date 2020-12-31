@@ -107,7 +107,7 @@ s.Error = styled.span`
 `;
 s.agree = styled.div`
   text-align: left;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   & input {
     margin: 3px 3px 0 5px;
   }

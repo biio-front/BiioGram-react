@@ -47,7 +47,7 @@ const CommentList = ({ nickname, content, userId, commentId, postId }) => {
 
 const s = {};
 s.date = styled.span`
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: lighter;
   margin-left: 5px;
   margin-bottom: 0;

@@ -60,7 +60,7 @@ s.Grid = styled(Grid)`
     & a {
       cursor: pointer;
       margin-left: 5px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
   }
   & i {

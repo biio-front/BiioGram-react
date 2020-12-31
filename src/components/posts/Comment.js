@@ -81,7 +81,7 @@ s.comment = styled.div`
     margin: 0;
     color: gray;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
   & > .list {
     margin-top: 10px;
