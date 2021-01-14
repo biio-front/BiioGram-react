@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/BiioGram-react/static/css/main.198249c0.chunk.css",
-    "main.js": "/BiioGram-react/static/js/main.5c362ca8.chunk.js",
-    "main.js.map": "/BiioGram-react/static/js/main.5c362ca8.chunk.js.map",
+    "main.js": "/BiioGram-react/static/js/main.d47c9d6a.chunk.js",
+    "main.js.map": "/BiioGram-react/static/js/main.d47c9d6a.chunk.js.map",
     "runtime-main.js": "/BiioGram-react/static/js/runtime-main.f6d02f7c.js",
     "runtime-main.js.map": "/BiioGram-react/static/js/runtime-main.f6d02f7c.js.map",
     "static/css/2.e84a3b0b.chunk.css": "/BiioGram-react/static/css/2.e84a3b0b.chunk.css",
@@ -19,6 +19,6 @@
     "static/css/2.e84a3b0b.chunk.css",
     "static/js/2.a79cadf1.chunk.js",
     "static/css/main.198249c0.chunk.css",
-    "static/js/main.5c362ca8.chunk.js"
+    "static/js/main.d47c9d6a.chunk.js"
   ]
 }
