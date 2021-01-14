@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFollowRequest, removeFollowRequest } from 'redux/user/userSlice';
 
-const FollowList = ({ nickname, userId }) => {
+const UserList = ({ nickname, userId }) => {
   const {
     currentUser: { Followings },
   } = useSelector((state) => state.user);
@@ -32,7 +32,7 @@ const FollowList = ({ nickname, userId }) => {
               style={style}
               onClick={onConfirm}
             >
-              팔로우
+              팔로잉
             </Button>
           ) : (
             <Button
@@ -65,8 +65,8 @@ const s = {};
 s.ListHeader = styled(List.Header)`
   float: left;
 `;
-FollowList.propTypes = {
+UserList.propTypes = {
   nickname: PropTypes.string.isRequired,
   userId: PropTypes.number.isRequired,
 };
-export default FollowList;
+export default UserList;

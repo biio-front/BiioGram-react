@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-const PostImg = ({ src, commentLen, postId }) => {
+const PostImg = ({ src, commentsLen, postId }) => {
   const { mainPosts } = useSelector((state) => state.post);
   const style = useMemo(
     () => ({
@@ -26,7 +26,7 @@ const PostImg = ({ src, commentLen, postId }) => {
             </span>
             <span>
               <Icon name="comment outline" />
-              {commentLen}
+              {commentsLen}
             </span>
           </div>
         </div>
@@ -74,6 +74,6 @@ s.container = styled.div`
 PostImg.propTypes = {
   postId: PropTypes.number.isRequired,
   src: PropTypes.string.isRequired,
-  commentLen: PropTypes.number.isRequired,
+  commentsLen: PropTypes.number.isRequired,
 };
 export default PostImg;

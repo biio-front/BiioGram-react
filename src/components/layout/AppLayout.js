@@ -21,7 +21,7 @@ const AppLayout = ({ children }) => {
             <NavLink to="/">BiioGram</NavLink>
           </Header>
           <div className="menu">
-            <NavLink to="/posting">
+            <NavLink to="/post/create">
               <Icon name="plus" size="large" />
             </NavLink>
             <Image

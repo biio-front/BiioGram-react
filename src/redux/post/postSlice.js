@@ -13,19 +13,19 @@ export const dummyPost = {
     {
       id: 1,
       src:
-        'https://postfiles.pstatic.net/MjAyMDEyMTNfNzkg/MDAxNjA3ODcwMjE4MzY2.LILZ384xZJf9RMgRQhEM_mIotC-eJXNMGmFCa4MOEn0g.Ee9zgxDFIP0RBmSb6RXQBcdQypVIvJW0PWzycYd8Irkg.JPEG.bohwajung/SE-318a6c4f-6f79-4053-9704-f1a9658d7468.jpg?type=w966',
+        'https://firebasestorage.googleapis.com/v0/b/haggendazs.appspot.com/o/BiioGram%2F_12285646.JPG?alt=media&token=ecad8e06-3d29-4e6e-a169-f582bc25ea66',
     },
     {
       id: 2,
       src:
-        'https://postfiles.pstatic.net/MjAyMDEyMTNfMjk3/MDAxNjA3ODcwMTkwNTI1.itfkAz6ePBWD8NsVPJQL81J_AYZle-c0E3bA8K3nG54g.8saLG2yEVcR9TRelQQOx2IwRU7WKmGfsI_7fWZDn7NMg.JPEG.bohwajung/SE-057136c4-5ecb-48e6-aa08-d73caf672076.jpg?type=w966',
+        'https://firebasestorage.googleapis.com/v0/b/haggendazs.appspot.com/o/BiioGram%2F_12285635.JPG?alt=media&token=740ef7a8-e636-49d0-baf8-8266ffb4ea5e',
     },
   ],
   content: '첫 번째 포스트 #히히',
   Likers: [
     {
-      id: 0,
-      nickname: '더미유저',
+      id: 2,
+      nickname: '사과맛',
       avatar: null,
     },
   ],
@@ -53,6 +53,9 @@ export const initialState = {
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
+  updatePostLoading: false,
+  updatePostDone: false,
+  updatePostError: null,
   removePostLoading: false,
   removePostDone: false,
   removePostError: null,
@@ -62,13 +65,14 @@ export const initialState = {
   removeCommentLoading: false,
   removeCommentDone: false,
   removeCommentError: null,
-  addLikersLoading: false,
-  addLikersDone: false,
-  addLikersError: null,
-  removeLikersLoading: false,
-  removeLikersDone: false,
-  removeLikersError: null,
+  addLikerLoading: false,
+  addLikerDone: false,
+  addLikerError: null,
+  removeLikerLoading: false,
+  removeLikerDone: false,
+  removeLikerError: null,
   mainPosts: [dummyPost],
+  singlePost: null,
 };
 
 initialState.mainPosts = initialState.mainPosts.concat(
@@ -114,6 +118,10 @@ const slice = createSlice({
   name: 'post',
   initialState,
   reducers: {
+    updatePost(state, { payload: postId }) {
+      const findPost = state.mainPosts.find((v) => v.id === postId);
+      state.singlePost = findPost;
+    },
     addPostRequest(state) {
       state.addPostLoading = true;
       state.addPostDone = false;
@@ -131,7 +139,7 @@ const slice = createSlice({
         },
         Images: [...images],
         content: text,
-        Likers: [],
+        Liker: [],
         Comments: [],
       });
     },
@@ -139,6 +147,24 @@ const slice = createSlice({
       console.log(error);
       state.addPostLoading = false;
       state.addPostError = error;
+    },
+    updatePostRequest(state) {
+      state.updatePostLoading = true;
+      state.updatePostDone = false;
+      state.updatePostError = null;
+    },
+    updatePostSuccess(state, { payload: { images, text } }) {
+      const updatePost = state.mainPosts.find((v) => v.id === state.singlePost.id);
+      state.updatePostLoading = false;
+      state.updatePostDone = true;
+      updatePost.Images = [...images];
+      updatePost.content = text;
+      state.singlePost = null;
+    },
+    updatePostFail(state, { payload: error }) {
+      console.log(error);
+      state.updatePostLoading = false;
+      state.updatePostError = error;
     },
     removePostRequest(state) {
       state.removePostLoading = true;
@@ -195,14 +221,14 @@ const slice = createSlice({
       state.removeCommentLoading = false;
       state.removeCommentError = error;
     },
-    addLikersRequest(state) {
-      state.addLikersLoading = true;
-      state.addLikersDone = false;
-      state.addLikersError = null;
+    addLikerRequest(state) {
+      state.addLikerLoading = true;
+      state.addLikerDone = false;
+      state.addLikerError = null;
     },
-    addLikersSuccess(state, { payload: { postId, currentUser } }) {
-      state.addLikersLoading = false;
-      state.addLikersDone = true;
+    addLikerSuccess(state, { payload: { postId, currentUser } }) {
+      state.addLikerLoading = false;
+      state.addLikerDone = true;
       const post = state.mainPosts.find((v) => v.id === postId);
       post.Likers.push({
         id: currentUser.id,
@@ -210,26 +236,26 @@ const slice = createSlice({
         avatar: currentUser.avatar,
       });
     },
-    addLikersFail(state, { payload: error }) {
+    addLikerFail(state, { payload: error }) {
       console.log(error);
-      state.addLikersLoading = false;
-      state.addLikersError = error;
+      state.addLikerLoading = false;
+      state.addLikerError = error;
     },
-    removeLikersRequest(state) {
-      state.removeLikersLoading = true;
-      state.removeLikersDone = false;
-      state.removeLikersError = null;
+    removeLikerRequest(state) {
+      state.removeLikerLoading = true;
+      state.removeLikerDone = false;
+      state.removeLikerError = null;
     },
-    removeLikersSuccess(state, { payload: { postId, currentUser } }) {
-      state.removeLikersLoading = false;
-      state.removeLikersDone = true;
+    removeLikerSuccess(state, { payload: { postId, currentUser } }) {
+      state.removeLikerLoading = false;
+      state.removeLikerDone = true;
       const post = state.mainPosts.find((v) => v.id === postId);
       post.Likers = post.Likers.filter((v) => v.id !== currentUser.id);
     },
-    removeLikersFail(state, { payload: error }) {
+    removeLikerFail(state, { payload: error }) {
       console.log(error);
-      state.removeLikersLoading = false;
-      state.removeLikersError = error;
+      state.removeLikerLoading = false;
+      state.removeLikerError = error;
     },
     editProfileToPost(state, { payload: { userId, nickname, src } }) {
       const posts = state.mainPosts.filter((v) => v.User.id === userId);
@@ -240,9 +266,13 @@ const slice = createSlice({
 
 export default slice.reducer;
 export const {
+  updatePost,
   addPostRequest,
   addPostSuccess,
   addPostFail,
+  updatePostRequest,
+  updatePostSuccess,
+  updatePostFail,
   removePostRequest,
   removePostSuccess,
   removePostFail,
@@ -252,11 +282,11 @@ export const {
   removeCommentRequest,
   removeCommentSuccess,
   removeCommentFail,
-  addLikersRequest,
-  addLikersSuccess,
-  addLikersFail,
-  removeLikersRequest,
-  removeLikersSuccess,
-  removeLikersFail,
+  addLikerRequest,
+  addLikerSuccess,
+  addLikerFail,
+  removeLikerRequest,
+  removeLikerSuccess,
+  removeLikerFail,
   editProfileToPost,
 } = slice.actions;

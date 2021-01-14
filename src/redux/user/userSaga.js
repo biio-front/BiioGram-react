@@ -1,5 +1,5 @@
 import { all, delay, fork, put, takeLatest } from 'redux-saga/effects';
-import { editProfileToPost } from 'redux/posts/postSlice';
+import { editProfileToPost } from 'redux/post/postSlice';
 import {
   loginFail,
   loginRequest,

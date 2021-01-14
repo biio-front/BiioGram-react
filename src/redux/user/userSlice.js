@@ -15,13 +15,18 @@ export const dummyUser = [
           {
             id: 1,
             src:
-              'https://postfiles.pstatic.net/MjAyMDEyMTNfNzkg/MDAxNjA3ODcwMjE4MzY2.LILZ384xZJf9RMgRQhEM_mIotC-eJXNMGmFCa4MOEn0g.Ee9zgxDFIP0RBmSb6RXQBcdQypVIvJW0PWzycYd8Irkg.JPEG.bohwajung/SE-318a6c4f-6f79-4053-9704-f1a9658d7468.jpg?type=w966',
+              'https://firebasestorage.googleapis.com/v0/b/haggendazs.appspot.com/o/BiioGram%2F_12285646.JPG?alt=media&token=ecad8e06-3d29-4e6e-a169-f582bc25ea66',
           },
         ],
         Comments: [
           {
             id: 1,
           },
+          {
+            id: 2,
+          },
+        ],
+        Likers: [
           {
             id: 2,
           },
@@ -158,7 +163,12 @@ const slice = createSlice({
         id: newId,
         Images: { ...images },
         Comments: [],
+        Likers: [],
       });
+    },
+    updatePostToMe(state, { payload: { images, postId } }) {
+      const post = state.currentUser.Posts.find((v) => v.id === postId);
+      post.Images = [...images];
     },
     removePostToMe(state, { payload }) {
       state.currentUser.Posts = state.currentUser.Posts.filter((v) => v.id !== payload);

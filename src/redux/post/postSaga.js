@@ -3,22 +3,25 @@ import {
   addCommentFail,
   addCommentRequest,
   addCommentSuccess,
-  addLikersFail,
-  addLikersRequest,
-  addLikersSuccess,
+  addLikerFail,
+  addLikerRequest,
+  addLikerSuccess,
   addPostFail,
   addPostRequest,
   addPostSuccess,
   removeCommentFail,
   removeCommentRequest,
   removeCommentSuccess,
-  removeLikersFail,
-  removeLikersRequest,
-  removeLikersSuccess,
+  removeLikerFail,
+  removeLikerRequest,
+  removeLikerSuccess,
   removePostFail,
   removePostRequest,
   removePostSuccess,
-} from 'redux/posts/postSlice';
+  updatePostFail,
+  updatePostRequest,
+  updatePostSuccess,
+} from 'redux/post/postSlice';
 import {
   addCommentToMe,
   addPostToMe,
@@ -39,6 +42,17 @@ function* addPost({ payload }) {
   } catch (err) {
     console.log(err);
     yield put(addPostFail(err));
+  }
+}
+
+function* updatePost({ payload }) {
+  try {
+    yield delay(1000);
+    yield put(updatePostSuccess({ ...payload }));
+    yield put(addPostToMe({ ...payload }));
+  } catch (err) {
+    console.log(err);
+    yield put(updatePostFail(err));
   }
 }
 
@@ -75,26 +89,29 @@ function* removeComment({ payload }) {
   }
 }
 
-function* addLikers({ payload }) {
+function* addLiker({ payload }) {
   try {
-    yield put(addLikersSuccess(payload));
+    yield put(addLikerSuccess(payload));
   } catch (err) {
     console.log(err);
-    yield put(addLikersFail(err));
+    yield put(addLikerFail(err));
   }
 }
 
-function* removeLikers({ payload }) {
+function* removeLiker({ payload }) {
   try {
-    yield put(removeLikersSuccess(payload));
+    yield put(removeLikerSuccess(payload));
   } catch (err) {
     console.log(err);
-    yield put(removeLikersFail(err));
+    yield put(removeLikerFail(err));
   }
 }
 
 export function* watchAddPost() {
   yield takeLatest(addPostRequest, addPost);
+}
+export function* watchUpdatePost() {
+  yield takeLatest(updatePostRequest, updatePost);
 }
 export function* watchremovePost() {
   yield takeLatest(removePostRequest, removePost);
@@ -105,20 +122,21 @@ export function* watchAddComment() {
 export function* watchRemoveComment() {
   yield takeLatest(removeCommentRequest, removeComment);
 }
-export function* watchAddLikers() {
-  yield takeLatest(addLikersRequest, addLikers);
+export function* watchAddLiker() {
+  yield takeLatest(addLikerRequest, addLiker);
 }
-export function* watchRemoveLikers() {
-  yield takeLatest(removeLikersRequest, removeLikers);
+export function* watchRemoveLiker() {
+  yield takeLatest(removeLikerRequest, removeLiker);
 }
 
 export default function* postSaga() {
   yield all([
     fork(watchAddPost),
+    fork(watchUpdatePost),
     fork(watchremovePost),
     fork(watchAddComment),
     fork(watchRemoveComment),
-    fork(watchAddLikers),
-    fork(watchRemoveLikers),
+    fork(watchAddLiker),
+    fork(watchRemoveLiker),
   ]);
 }

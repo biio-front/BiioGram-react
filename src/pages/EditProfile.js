@@ -19,7 +19,8 @@ const EditProfile = () => {
   const [desc, onChangeDesc] = useInput(currentUser.desc);
 
   const onSubmit = useCallback(() => {
-    const src = images[0]?.src;
+    let src = null;
+    if (images) src = images[0]?.src;
     const userId = currentUser.id;
     dispatch(editProfileRequest({ src, nickname, desc, userId }));
     history.push('/profile');
@@ -28,7 +29,10 @@ const EditProfile = () => {
   return (
     <AppLayout>
       <s.article>
-        <ProfileHead avatar={images[0]?.src || currentUser.avatar} nickname={nickname}>
+        <ProfileHead
+          avatar={images ? images[0]?.src : currentUser.avatar}
+          nickname={nickname}
+        >
           <input
             type="file"
             accept="image/*"
@@ -79,13 +83,15 @@ const EditProfile = () => {
 const s = {};
 s.article = styled.article`
   padding: 10px;
+  max-width: 640px;
+  margin: 0 auto;
 `;
 s.changeAvatar = styled.a`
   cursor: pointer;
 `;
 s.Form = styled(Form)`
   margin-top: 20px;
-  padding: 0 20px;
+  padding: 0 60px;
   & > div {
     margin-bottom: 10px;
     & label {

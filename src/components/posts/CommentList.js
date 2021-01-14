@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Image, List } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { removeCommentRequest } from 'redux/posts/postSlice';
+import { removeCommentRequest } from 'redux/post/postSlice';
 import PropTypes from 'prop-types';
 
 const CommentList = ({ nickname, content, userId, commentId, postId }) => {

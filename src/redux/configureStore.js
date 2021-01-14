@@ -3,11 +3,11 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { combineReducers } from 'redux';
 import user from 'redux/user/userSlice';
-import post from 'redux/posts/postSlice';
+import post from 'redux/post/postSlice';
 
 import { all } from 'redux-saga/effects';
 import userSaga from 'redux/user/userSaga';
-import postSaga from 'redux/posts/postSaga';
+import postSaga from 'redux/post/postSaga';
 
 const rootReducer = combineReducers({ user, post });
 

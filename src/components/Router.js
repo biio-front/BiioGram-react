@@ -1,7 +1,8 @@
 import Auth from 'pages/Auth';
 import EditProfile from 'pages/EditProfile';
 import Home from 'pages/Home';
-import posting from 'pages/Posting';
+import CreatePost from 'pages/CreatePost';
+import UpdatePost from 'pages/UpdatePost';
 import Profile from 'pages/Profile';
 import SignUp from 'pages/SignUp';
 import React from 'react';
@@ -18,7 +19,8 @@ function RouterApp() {
             <Route exact path="/" component={Home} />
             <Route exact path="/profile" component={Profile} />
             <Route path="/profile/edit" component={EditProfile} />
-            <Route path="/posting" component={posting} />
+            <Route path="/post/create" component={CreatePost} />
+            <Route path="/post/update" component={UpdatePost} />
             <Redirect from="*" to="/" />
           </>
         ) : (

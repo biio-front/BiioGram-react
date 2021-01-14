@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 
-const useUploadImages = () => {
-  const [images, setImage] = useState('');
+const useUploadImages = (initialState) => {
+  const [images, setImage] = useState(initialState);
   const onFileChange = useCallback((e) => {
     const { files } = e.target;
     let imageArr = [];

@@ -4,8 +4,8 @@ import { Grid, List } from 'semantic-ui-react';
 import styled from 'styled-components';
 import AppLayout from 'components/layout/AppLayout';
 import PostImg from 'components/profile/PostImg';
-import FollowListModal from 'components/profile/FollowListModal';
 import ProfileHead from 'components/profile/ProfileHead';
+import ListModal from 'components/common/ListModal';
 
 const Profile = () => {
   const { nickname, Posts, Followers, Followings, desc, avatar } = useSelector(
@@ -16,17 +16,17 @@ const Profile = () => {
     <>
       <AppLayout>
         <s.profile>
-          <ProfileHead avatar={avatar} nickname={nickname}>
+          <ProfileHead avatar={avatar} nickname={nickname} edit="수정하기">
             {/* 프로필 상단 오른쪽 */}
             <s.List horizontal>
               <List.Item>
                 게시글 <span>{Posts.length}</span>
               </List.Item>
               <List.Item>
-                <FollowListModal Follow={Followers} title="팔로워" />
+                <ListModal list={Followers} title="팔로워" />
               </List.Item>
               <List.Item>
-                <FollowListModal Follow={Followings} title="팔로우" />
+                <ListModal list={Followings} title="팔로우" />
               </List.Item>
             </s.List>
             <p>{desc}</p>
@@ -40,7 +40,7 @@ const Profile = () => {
                   <Grid.Column key={i}>
                     <PostImg
                       src={v.Images[0].src}
-                      commentLen={v.Comments.length}
+                      commentsLen={v.Comments.length}
                       postId={v.id}
                     />
                   </Grid.Column>

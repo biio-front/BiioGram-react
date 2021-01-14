@@ -5,22 +5,23 @@ import PostCardContent from 'components/posts/PostCardContent';
 import Comment from 'components/posts/Comment';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { addLikersRequest, removeLikersRequest } from 'redux/posts/postSlice';
+import { addLikerRequest, removeLikerRequest } from 'redux/post/postSlice';
 import PostCardHead from 'components/posts/PostCardHead';
 import Slider from './Slider';
+import ListModal from 'components/common/ListModal';
 
 const PostCard = ({ user, content, Images, comments, postId, Likers }) => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const [toggleComment, setToggleComment] = useState(false);
-  const [hearted, setHearted] = useState(false);
+  const [hearted, setHearted] = useState(Likers.find((v) => v.id === currentUser.id));
 
   const onToggleHeart = useCallback(() => {
     dispatch(
       hearted
-        ? removeLikersRequest({ postId, currentUser })
-        : addLikersRequest({ postId, currentUser }),
+        ? removeLikerRequest({ postId, currentUser })
+        : addLikerRequest({ postId, currentUser }),
     );
     setHearted((prev) => !prev);
   }, [hearted]);
@@ -51,7 +52,7 @@ const PostCard = ({ user, content, Images, comments, postId, Likers }) => {
           size="large"
           onClick={() => setToggleComment((prev) => !prev)}
         />
-        <p>좋아요 {Likers?.length || 0}개</p>
+        <ListModal title="좋아요" list={Likers} />
       </s.btn>
 
       {/* 포스트 내용 */}
@@ -83,6 +84,7 @@ s.btn = styled.div`
   }
   & p {
     margin-top: 5px;
+    cursor: pointer;
   }
 `;
 PostCard.propTypes = {
@@ -105,7 +107,7 @@ PostCard.propTypes = {
       nickname: PropTypes.string.isRequired,
       avatar: PropTypes.string,
     }),
-  ).isRequired,
+  ),
   comments: PropTypes.arrayOf(
     PropTypes.shape({
       User: PropTypes.shape({

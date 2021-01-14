@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import DropDownMenu from 'components/common/DropDownMenu';
-import { removePostRequest } from 'redux/posts/postSlice';
+import { updatePost, removePostRequest } from 'redux/post/postSlice';
 import { addFollowRequest, removeFollowRequest } from 'redux/user/userSlice';
+import { Link } from 'react-router-dom';
 
 const PostMenu = ({ userId, postId, nickname }) => {
   const {
@@ -23,6 +24,10 @@ const PostMenu = ({ userId, postId, nickname }) => {
     isFollowed && setFollow(true);
   }, [follow]);
 
+  const onUpdate = useCallback(() => {
+    dispatch(updatePost(postId));
+  }, []);
+
   const onRemove = useCallback(() => {
     dispatch(removePostRequest(postId));
   }, []);
@@ -37,11 +42,16 @@ const PostMenu = ({ userId, postId, nickname }) => {
   return (
     <DropDownMenu top="30px">
       {userId === id ? (
-        <List.Item onClick={onRemove}>
-          {removePostLoading ? <Loader active inline="centered" /> : '삭제'}
-        </List.Item>
-      ) : (
         <>
+          <Link to="/post/update">
+            <List.Item onClick={onUpdate}>수정</List.Item>
+          </Link>
+          <List.Item onClick={onRemove}>
+            {removePostLoading ? <Loader active inline="centered" /> : '삭제'}
+          </List.Item>
+        </>
+      ) : (
+        <List.Item>
           <List.Item onClick={onToggleFollow}>
             {addFollowLoading || removeFollowLoading ? (
               <Loader active inline="centered" />
@@ -51,7 +61,7 @@ const PostMenu = ({ userId, postId, nickname }) => {
               '팔로우'
             )}
           </List.Item>
-        </>
+        </List.Item>
       )}
     </DropDownMenu>
   );

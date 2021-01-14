@@ -27,10 +27,18 @@ const Slider = ({ Images }) => {
   return (
     <s.container>
       {currentSlider !== 1 && (
-        <Icon name="arrow alternate circle left outline" onClick={prevSlide} />
+        <Icon
+          className="prevPointer"
+          name="arrow alternate circle left outline"
+          onClick={prevSlide}
+        />
       )}
       {currentSlider !== LEN && (
-        <s.next name="arrow alternate circle right outline" onClick={nextSlide} />
+        <Icon
+          className="nextPointer"
+          name="arrow alternate circle right outline"
+          onClick={nextSlide}
+        />
       )}
       <s.slider ref={slideRef}>
         {Images.map((v, i) => (
@@ -61,13 +69,16 @@ s.container = styled.div`
     padding: 50px 0;
     position: absolute;
     top: calc(50% - 58px);
-    z-index: 600;
+    z-index: 490;
     margin: 0 0.25rem;
     cursor: pointer;
   }
-`;
-s.next = styled(Icon)`
-  right: 0;
+  & i.prevPointer {
+    left: 0;
+  }
+  & i.nextPointer {
+    right: 0;
+  }
 `;
 s.slider = styled.div`
   display: flex;

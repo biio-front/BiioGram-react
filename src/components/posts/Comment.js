@@ -3,7 +3,7 @@ import { Form, Input, List } from 'semantic-ui-react';
 import CommentList from 'components/posts/CommentList';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCommentRequest } from 'redux/posts/postSlice';
+import { addCommentRequest } from 'redux/post/postSlice';
 import { useInput } from 'hooks/useInput';
 import PropTypes from 'prop-types';
 
@@ -33,6 +33,7 @@ const Comment = ({ postId, comments, toggleComment, onToggleComment }) => {
     setNewComment(text);
     setText('');
   }, [text]);
+
   return (
     <s.comment>
       <p onClick={onToggle}>
